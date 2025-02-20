@@ -16,6 +16,10 @@ orders = [
     } for i in range(1, 11)
 ]
 
+@app.route('/order', methods=['GET'])
+def get_single_order():
+    return jsonify(orders[0])
+
 @app.route('/orders', methods=['GET'])
 def get_orders():
     return jsonify(orders)
