@@ -26,6 +26,7 @@ def get_order(order_id):
     if order:
         return jsonify(order)
     return jsonify({"message": "Order not found"}), 404
+    
 
 @app.route('/orders', methods=['POST'])
 def create_order():
@@ -42,6 +43,16 @@ def create_order():
     }
     orders.append(new_order)
     return jsonify(new_order), 201
+
+
+@app.route("/receive", methods=["POST"])
+def receive_payload():
+    try:
+        data = request.get_json(force=True)  # Paksa parsing JSON
+        return jsonify({"status": "success", "received": data}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True)
